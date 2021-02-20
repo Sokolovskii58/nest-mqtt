@@ -1,14 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { Ctx, MessagePattern, MqttContext, Payload } from '@nestjs/microservices';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
 
-    @MessagePattern('sum')
-    sum(data: number[]): number {
-    return data.reduce((a, b) => a + b, 0);
-
+  @MessagePattern('notifications')
+  getNotifications(@Payload() data: number[], @Ctx() context: MqttContext) {
+    console.log(`Topic: ${context.getTopic()}`);
   }
-
+  
 }
