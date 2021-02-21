@@ -5,9 +5,13 @@ import { AppService } from './app.service';
 @Controller()
 export class AppController {
 
+  constructor(private readonly appService: AppService) {}
+
   @MessagePattern('notifications')
   getNotifications(@Payload() data: number[], @Ctx() context: MqttContext) {
-    console.log(`Topic: ${context.getTopic()}`);
+    console.log('data => ', data);
+    console.log('topic => ', context.getTopic());
   }
+
   
 }
